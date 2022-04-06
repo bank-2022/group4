@@ -49,10 +49,10 @@ DROP TABLE IF EXISTS `accountclient`;
 CREATE TABLE `accountclient` (
   `accounts_idAccounts` int DEFAULT NULL,
   `client_idClient` int DEFAULT NULL,
-  KEY `accounts_idAccounts` (`accounts_idAccounts`),
-  KEY `client_idClient` (`client_idClient`),
-  CONSTRAINT `accountclient_ibfk_1` FOREIGN KEY (`accounts_idAccounts`) REFERENCES `account` (`id_account`),
-  CONSTRAINT `accountclient_ibfk_2` FOREIGN KEY (`client_idClient`) REFERENCES `client` (`id_client`)
+  KEY `accountclient_client_idx` (`client_idClient`),
+  KEY `account_accountclient_idx` (`accounts_idAccounts`),
+  CONSTRAINT `account_accountclient` FOREIGN KEY (`accounts_idAccounts`) REFERENCES `account` (`id_account`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `client_accountclient` FOREIGN KEY (`client_idClient`) REFERENCES `client` (`id_client`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -77,10 +77,10 @@ CREATE TABLE `card` (
   `client_idClient` int DEFAULT NULL,
   `cardNumber` tinyint DEFAULT NULL,
   `cardPIN` varchar(255) DEFAULT NULL,
-  KEY `accounts_idAccounts` (`accounts_idAccounts`),
-  KEY `client_idClient` (`client_idClient`),
-  CONSTRAINT `card_ibfk_1` FOREIGN KEY (`accounts_idAccounts`) REFERENCES `account` (`id_account`),
-  CONSTRAINT `card_ibfk_2` FOREIGN KEY (`client_idClient`) REFERENCES `client` (`id_client`)
+  KEY `client_card_idx` (`client_idClient`),
+  KEY `account_card_idx` (`accounts_idAccounts`),
+  CONSTRAINT `account_card` FOREIGN KEY (`accounts_idAccounts`) REFERENCES `account` (`id_account`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `client_card` FOREIGN KEY (`client_idClient`) REFERENCES `client` (`id_client`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -101,12 +101,13 @@ DROP TABLE IF EXISTS `client`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `client` (
-  `id_client` int NOT NULL,
-  `client_username` varchar(45) DEFAULT NULL,
+  `id_client` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
-  `pnumber` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id_client`)
+  `pnumber` int DEFAULT NULL,
+  PRIMARY KEY (`id_client`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -135,8 +136,8 @@ CREATE TABLE `transactions` (
   `sum` tinyint DEFAULT NULL,
   `accounts_idaccounts` int DEFAULT NULL,
   PRIMARY KEY (`id_transactions`),
-  KEY `accounts_idaccounts` (`accounts_idaccounts`),
-  CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`accounts_idaccounts`) REFERENCES `account` (`id_account`)
+  KEY `account_transactions_idx` (`accounts_idaccounts`),
+  CONSTRAINT `account_transactions` FOREIGN KEY (`accounts_idaccounts`) REFERENCES `account` (`id_account`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-05 16:26:14
+-- Dump completed on 2022-04-06 14:02:19
