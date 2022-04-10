@@ -12,6 +12,7 @@ var transactionsRouter = require('./routes/transactions');
 
 var clientRouter = require('./routes/client');
 var cardRouter = require('./routes/card');
+var accountclientRouter = require('./routes/accountclient');
 
 
 
@@ -32,6 +33,7 @@ app.use('/transactions',transactionsRouter);
 
 app.use('/client', clientRouter);
 app.use('/card', cardRouter);
+app.use('/accountclient', accountclientRouter);
 
 
 

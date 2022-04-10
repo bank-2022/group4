@@ -9,7 +9,7 @@ const accountclient = {
   },
   add: function(accountclient, callback) {
     return db.query(
-      'insert into accountclient (accounts_idAccounts, client_idClient) values(?,?,?,?)',
+      'insert into accountclient (accounts_idAccounts, client_idClient) values(?,?)',
       [accountclient.accounts_idAccounts, accountclient.client_idClient],
       callback
     );
