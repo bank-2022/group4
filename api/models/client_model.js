@@ -9,8 +9,8 @@ const client = {
   },
   add: function(client, callback) {
     return db.query(
-      'insert into client (username,name,address,password) values(?,?,?,?)',
-      [client.username, client.name, client.address, client.password],
+      'insert into client (username,name,address,pnumber) values(?,?,?,?)',
+      [client.username, client.name, client.address, client.pnumber],
       callback
     );
   },
@@ -19,8 +19,8 @@ const client = {
   },
   update: function(id, client, callback) {
     return db.query(
-      'update client set username=?,name=?, address=?, password=?, where id_client=?',
-      [client.username, client.name, client.address, client.password, id],
+      'update client set username=?,name=?, address=?, pnumber=?, where id_client=?',
+      [client.username, client.name, client.address, client.pnumber, id],
       callback
     );
   }
