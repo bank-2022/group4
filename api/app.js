@@ -7,6 +7,8 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var accountRouter = require('./routes/account');
+var clientRouter = require('./routes/client');
+var cardRouter = require('./routes/card');
 
 var app = express();
 
@@ -21,5 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/account', accountRouter);
+app.use('/client', clientRouter);
+app.use('/card', cardRouter);
 
 module.exports = app;
