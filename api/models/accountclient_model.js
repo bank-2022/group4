@@ -19,7 +19,7 @@ const accountclient = {
   },
   update: function(id, accountclient, callback) {
     return db.query(
-      'update accountclient set accounts_idAccounts=?,client_idClient=?, where id_accountclient=?',
+      'update accountclient set accounts_idAccounts=?,client_idClient=? where id_accountclient=?',
       [accountclient.accounts_idAccounts, accountclient.client_idClient, id],
       callback
     );

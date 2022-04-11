@@ -1,28 +1,29 @@
 const db = require('../database');
+const bcrypt = require('bcryptjs');
+
+const saltRounds=10;
 
 const card = {
   getById: function(id, callback) {
-    return db.query('select * from card where id_card=?', [id], callback);
+    return db.query('select * from card where accounts_idAccounts=?', [id], callback);
   },
   getAll: function(callback) {
     return db.query('select * from card', callback);
   },
   add: function(card, callback) {
-    return db.query(
-      'insert into card (accounts_idAccounts,client_idClient,cardNumber,cardPIN) values(?,?,?,?)',
-      [card.accounts_idAccounts, card.name, card.cardNumber, card.cardPIN],
-      callback
-    );
+    bcrypt.hash(card.cardPIN, saltRounds, function(err, hash) {
+      return db.query('insert into card (accounts_idAccounts, client_idClient, cardNumber, cardPIN) values(?,?,?,?)',
+      [card.accounts_idAccounts, card.client_idClient, card.cardNumber, hash], callback);
+    });
   },
   delete: function(id, callback) {
-    return db.query('delete from card where id_card=?', [id], callback);
+    return db.query('delete from card where accounts_idAccounts=?', [id], callback);
   },
   update: function(id, card, callback) {
-    return db.query(
-      'update card set accounts_idAccounts=?,name=?, cardNumber=?, cardPIN=?, where id_card=?',
-      [card.accounts_idAccounts, card.name, card.cardNumber, card.cardPIN, id],
-      callback
-    );
+    bcrypt.hash(card.password, saltRounds, function(err, hash) {
+      return db.query('update card set cardNumber=?, accounts_idAccounts=?, client_idClient=?, cardPIN=? WHERE cardNumber=?',
+      [card.accounts_idAccounts, card.client_idClient, card.cardNumber, hash, id], callback);
+    });
   }
 };
 module.exports = card;
