@@ -20,8 +20,8 @@ const card = {
     return db.query('delete from card where accounts_idAccounts=?', [id], callback);
   },
   update: function(id, card, callback) {
-    bcrypt.hash(card.password, saltRounds, function(err, hash) {
-      return db.query('update card set cardNumber=?, accounts_idAccounts=?, client_idClient=?, cardPIN=? WHERE cardNumber=?',
+    bcrypt.hash(card.cardPIN, saltRounds, function(err, hash) {
+      return db.query('update card set accounts_idAccounts=?, client_idClient=?, cardNumber=?, cardPIN=? WHERE accounts_idAccounts=?',
       [card.accounts_idAccounts, card.client_idClient, card.cardNumber, hash, id], callback);
     });
   }
