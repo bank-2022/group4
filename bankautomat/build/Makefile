@@ -249,6 +249,7 @@ Makefile: ../bankautomat.pro C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspe
 		../bankautomat.pro \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Widgets.prl \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Gui.prl \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Network.prl \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Core.prl \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/qtmain.prl \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/build_pass.prf
@@ -432,6 +433,7 @@ C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/lex.prf:
 ../bankautomat.pro:
 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Widgets.prl:
 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Gui.prl:
+C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Network.prl:
 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Core.prl:
 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/qtmain.prl:
 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/build_pass.prf:

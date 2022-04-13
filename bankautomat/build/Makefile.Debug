@@ -13,13 +13,13 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -Wextra -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -Wextra -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I../../bankautomat -I. -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -Idebug -I. -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ 
+INCPATH       = -I../../bankautomat -I. -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -Idebug -I. -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Widgets.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Gui.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Core.a  -lmingw32 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libqtmain.a -LC:/openssl/lib -LC:/Utils/my_sql/mysql-5.7.25-win32/lib -LC:/Utils/postgresql/pgsql/lib -lshell32 
+LIBS        =        C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Widgets.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Gui.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Network.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Core.a  -lmingw32 C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libqtmain.a -LC:/openssl/lib -LC:/Utils/my_sql/mysql-5.7.25-win32/lib -LC:/Utils/postgresql/pgsql/lib -lshell32 
 QMAKE         = C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/bin/qmake.exe
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -53,23 +53,27 @@ OBJECTS_DIR   = debug/
 SOURCES       = ../accountmain.cpp \
 		../login.cpp \
 		../main.cpp \
-		../mainwindow.cpp debug/moc_accountmain.cpp \
+		../mainwindow.cpp \
+		../myurl.cpp debug/moc_accountmain.cpp \
 		debug/moc_login.cpp \
 		debug/moc_mainwindow.cpp
 OBJECTS       = debug/accountmain.o \
 		debug/login.o \
 		debug/main.o \
 		debug/mainwindow.o \
+		debug/myurl.o \
 		debug/moc_accountmain.o \
 		debug/moc_login.o \
 		debug/moc_mainwindow.o
 
 DIST          =  ../accountmain.h \
 		../login.h \
-		../mainwindow.h ../accountmain.cpp \
+		../mainwindow.h \
+		../myurl.h ../accountmain.cpp \
 		../login.cpp \
 		../main.cpp \
-		../mainwindow.cpp
+		../mainwindow.cpp \
+		../myurl.cpp
 QMAKE_TARGET  = bankautomat
 DESTDIR        = debug/ #avoid trailing-slash linebreak
 TARGET         = bankautomat.exe
@@ -80,7 +84,7 @@ DESTDIR_TARGET = debug/bankautomat.exe
 first: all
 all: Makefile.Debug  debug/bankautomat.exe
 
-debug/bankautomat.exe: C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Widgets.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Gui.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Core.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libqtmain.a ui_accountmain.h ui_login.h ui_mainwindow.h $(OBJECTS) 
+debug/bankautomat.exe: C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Widgets.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Gui.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Network.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libQt5Core.a C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/libqtmain.a ui_accountmain.h ui_login.h ui_mainwindow.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
 
 qmake: FORCE
@@ -89,10 +93,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) bankautomat.zip $(SOURCES) $(DIST) ../../bankautomat.pro C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/spec_pre.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/qdevice.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/device_config.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/sanitize.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/gcc-base.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/g++-base.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/angle.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/windows_vulkan_sdk.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/windows-vulkan.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/g++-win32.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/windows-desktop.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/qconfig.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3danimation.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3danimation_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dcore.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dcore_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dextras.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dextras_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dinput.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dinput_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dlogic.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dlogic_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquick.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquick_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickanimation.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickanimation_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickextras.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickextras_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickinput.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickinput_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickrender.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickrender_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickscene2d.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickscene2d_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3drender.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3drender_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_accessibility_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axbase.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axbase_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axcontainer.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axcontainer_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axserver.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axserver_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_bluetooth.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_bluetooth_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_bootstrap_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_concurrent.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_concurrent_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_core.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_core_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_dbus.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_dbus_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_designer.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_designer_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_designercomponents_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_devicediscovery_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_edid_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_egl_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_fb_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gamepad.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gamepad_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gui.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gui_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_help.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_help_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_location.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_location_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimedia.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimedia_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimediawidgets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_network.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_network_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_nfc.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_nfc_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_opengl.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_opengl_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_openglextensions.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_openglextensions_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_packetprotocol_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_platformcompositor_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioning.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioning_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioningquick.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioningquick_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_printsupport.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_printsupport_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qml.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qml_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmldebug_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmldevtools_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlmodels.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlmodels_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmltest.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmltest_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlworkerscript.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlworkerscript_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quick.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quick_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickcontrols2.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickcontrols2_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickparticles_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickshapes_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quicktemplates2.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickwidgets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickwidgets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_remoteobjects.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_remoteobjects_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_repparser.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_repparser_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_scxml.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_scxml_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sensors.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sensors_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialbus.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialbus_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialport.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialport_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sql.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sql_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_svg.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_svg_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_testlib.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_testlib_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_texttospeech.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_texttospeech_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_theme_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_uiplugin.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_uitools.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_uitools_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_webchannel.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_webchannel_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_websockets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_websockets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_widgets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_widgets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_windowsuiautomation_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_winextras.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_winextras_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xml.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xml_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xmlpatterns.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xmlpatterns_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_zlib_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qt_functions.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qt_config.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++/qmake.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/spec_post.prf .qmake.stash C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/exclusive_builds.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/toolchain.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/default_pre.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/default_pre.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/resolve_config.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/exclusive_builds_post.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/default_post.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/build_pass.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qml_debug.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/precompile_header.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/warn_on.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qt.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/resources_functions.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/resources.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/moc.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/opengl.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/uic.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qmake_use.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/file_copies.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/windows.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/testcase_targets.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/exceptions.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/yacc.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/lex.prf ../bankautomat.pro C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Widgets.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Gui.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Core.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/qtmain.prl    C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/data/dummy.cpp ../accountmain.h ../login.h ../mainwindow.h  ../accountmain.cpp ../login.cpp ../main.cpp ../mainwindow.cpp ../accountmain.ui ../login.ui ../mainwindow.ui    
+	$(ZIP) bankautomat.zip $(SOURCES) $(DIST) ../../bankautomat.pro C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/spec_pre.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/qdevice.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/device_config.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/sanitize.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/gcc-base.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/g++-base.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/angle.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/windows_vulkan_sdk.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/windows-vulkan.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/g++-win32.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/common/windows-desktop.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/qconfig.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3danimation.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3danimation_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dcore.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dcore_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dextras.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dextras_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dinput.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dinput_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dlogic.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dlogic_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquick.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquick_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickanimation.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickanimation_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickextras.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickextras_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickinput.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickinput_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickrender.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickrender_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickscene2d.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3dquickscene2d_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3drender.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_3drender_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_accessibility_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axbase.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axbase_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axcontainer.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axcontainer_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axserver.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_axserver_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_bluetooth.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_bluetooth_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_bootstrap_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_concurrent.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_concurrent_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_core.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_core_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_dbus.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_dbus_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_designer.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_designer_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_designercomponents_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_devicediscovery_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_edid_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_egl_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_fb_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gamepad.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gamepad_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gui.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_gui_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_help.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_help_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_location.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_location_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimedia.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimedia_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimediawidgets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_network.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_network_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_nfc.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_nfc_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_opengl.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_opengl_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_openglextensions.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_openglextensions_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_packetprotocol_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_platformcompositor_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioning.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioning_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioningquick.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_positioningquick_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_printsupport.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_printsupport_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qml.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qml_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmldebug_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmldevtools_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlmodels.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlmodels_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmltest.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmltest_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlworkerscript.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qmlworkerscript_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quick.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quick_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickcontrols2.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickcontrols2_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickparticles_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickshapes_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quicktemplates2.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickwidgets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_quickwidgets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_remoteobjects.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_remoteobjects_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_repparser.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_repparser_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_scxml.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_scxml_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sensors.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sensors_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialbus.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialbus_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialport.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_serialport_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sql.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_sql_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_svg.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_svg_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_testlib.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_testlib_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_texttospeech.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_texttospeech_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_theme_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_uiplugin.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_uitools.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_uitools_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_webchannel.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_webchannel_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_websockets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_websockets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_widgets.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_widgets_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_windowsuiautomation_support_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_winextras.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_winextras_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xml.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xml_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xmlpatterns.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_xmlpatterns_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/modules/qt_lib_zlib_private.pri C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qt_functions.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qt_config.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++/qmake.conf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/spec_post.prf .qmake.stash C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/exclusive_builds.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/toolchain.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/default_pre.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/default_pre.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/resolve_config.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/exclusive_builds_post.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/default_post.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/build_pass.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qml_debug.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/precompile_header.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/warn_on.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qt.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/resources_functions.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/resources.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/moc.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/opengl.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/uic.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/qmake_use.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/file_copies.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/win32/windows.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/testcase_targets.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/exceptions.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/yacc.prf C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/lex.prf ../bankautomat.pro C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Widgets.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Gui.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Network.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/Qt5Core.prl C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/lib/qtmain.prl    C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/features/data/dummy.cpp ../accountmain.h ../login.h ../mainwindow.h ../myurl.h  ../accountmain.cpp ../login.cpp ../main.cpp ../mainwindow.cpp ../myurl.cpp ../accountmain.ui ../login.ui ../mainwindow.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug/accountmain.o debug/login.o debug/main.o debug/mainwindow.o debug/moc_accountmain.o debug/moc_login.o debug/moc_mainwindow.o
+	-$(DEL_FILE) debug/accountmain.o debug/login.o debug/main.o debug/mainwindow.o debug/myurl.o debug/moc_accountmain.o debug/moc_login.o debug/moc_mainwindow.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -227,9 +231,10 @@ debug/moc_accountmain.cpp: ../accountmain.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
 		debug/moc_predefs.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/bin/moc.exe
-	'C:\Users\petes\Downloads\qt\5.15.2\mingw81_32\bin\moc.exe' $(DEFINES) --include 'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat/build/debug/moc_predefs.h' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ -I'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -I. -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_32/i686-w64-mingw32/include ../accountmain.h -o debug/moc_accountmain.cpp
+	'C:\Users\petes\Downloads\qt\5.15.2\mingw81_32\bin\moc.exe' $(DEFINES) --include 'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat/build/debug/moc_predefs.h' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ -I'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -I. -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_32/i686-w64-mingw32/include ../accountmain.h -o debug/moc_accountmain.cpp
 
 debug/moc_login.cpp: ../login.h \
+		../accountmain.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QDialog \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -334,13 +339,49 @@ debug/moc_login.cpp: ../login.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qfiledevice.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qvector2d.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
+		../myurl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QDebug \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QNetworkAccessManager \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkaccessmanager.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetworkglobal.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetwork-config.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkrequest.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QSharedDataPointer \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QString \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QUrl \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVector \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QObject \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslConfiguration \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslconfiguration.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtcpsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qabstractsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslerror.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslcertificate.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcryptographichash.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qdatetime.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qssl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QFlags \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QMetaType \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsondocument.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsonvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborcommon.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/quuid.h \
 		debug/moc_predefs.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/bin/moc.exe
-	'C:\Users\petes\Downloads\qt\5.15.2\mingw81_32\bin\moc.exe' $(DEFINES) --include 'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat/build/debug/moc_predefs.h' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ -I'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -I. -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_32/i686-w64-mingw32/include ../login.h -o debug/moc_login.cpp
+	'C:\Users\petes\Downloads\qt\5.15.2\mingw81_32\bin\moc.exe' $(DEFINES) --include 'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat/build/debug/moc_predefs.h' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ -I'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -I. -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_32/i686-w64-mingw32/include ../login.h -o debug/moc_login.cpp
 
 debug/moc_mainwindow.cpp: ../mainwindow.h \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
+		../login.h \
+		../accountmain.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QDialog \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtguiglobal.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qglobal.h \
@@ -443,11 +484,47 @@ debug/moc_mainwindow.cpp: ../mainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qfiledevice.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qvector2d.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
+		../myurl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QDebug \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QNetworkAccessManager \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkaccessmanager.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetworkglobal.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetwork-config.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkrequest.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QSharedDataPointer \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QString \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QUrl \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVector \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QObject \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslConfiguration \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslconfiguration.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtcpsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qabstractsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslerror.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslcertificate.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcryptographichash.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qdatetime.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qssl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QFlags \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QMetaType \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsondocument.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsonvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborcommon.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/quuid.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtabwidget.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qicon.h \
 		debug/moc_predefs.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/bin/moc.exe
-	'C:\Users\petes\Downloads\qt\5.15.2\mingw81_32\bin\moc.exe' $(DEFINES) --include 'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat/build/debug/moc_predefs.h' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ -I'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -I. -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_32/i686-w64-mingw32/include ../mainwindow.h -o debug/moc_mainwindow.cpp
+	'C:\Users\petes\Downloads\qt\5.15.2\mingw81_32\bin\moc.exe' $(DEFINES) --include 'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat/build/debug/moc_predefs.h' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/mkspecs/win32-g++ -I'C:/Users/petes/OneDrive/Työpöytä/koulu/Ohjelmistokehityksen projekti/pankkiprojekti/group4/bankautomat' -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtANGLE -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork -IC:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore -I. -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_32/i686-w64-mingw32/include ../mainwindow.h -o debug/moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -585,10 +662,26 @@ debug/accountmain.o: ../accountmain.cpp ../accountmain.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qfiledevice.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qvector2d.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
-		ui_accountmain.h
+		ui_accountmain.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QApplication \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qapplication.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcoreapplication.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qeventloop.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qguiapplication.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qinputmethod.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QLabel \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qlabel.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qframe.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QPushButton \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qpushbutton.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qabstractbutton.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qicon.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/accountmain.o ../accountmain.cpp
 
 debug/login.o: ../login.cpp ../login.h \
+		../accountmain.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QDialog \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -693,8 +786,41 @@ debug/login.o: ../login.cpp ../login.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qfiledevice.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qvector2d.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
-		ui_login.h \
+		../myurl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QDebug \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QNetworkAccessManager \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkaccessmanager.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetworkglobal.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetwork-config.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkrequest.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QSharedDataPointer \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QString \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QUrl \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVector \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QObject \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslConfiguration \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslconfiguration.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtcpsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qabstractsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslerror.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslcertificate.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcryptographichash.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qdatetime.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qssl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QFlags \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QMetaType \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsondocument.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsonvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborcommon.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/quuid.h \
+		ui_login.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QApplication \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qapplication.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcoreapplication.h \
@@ -724,8 +850,10 @@ debug/login.o: ../login.cpp ../login.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/login.o ../login.cpp
 
 debug/main.o: ../main.cpp ../mainwindow.h \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
+		../login.h \
+		../accountmain.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QDialog \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtguiglobal.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qglobal.h \
@@ -828,6 +956,42 @@ debug/main.o: ../main.cpp ../mainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qfiledevice.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qvector2d.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
+		../myurl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QDebug \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QNetworkAccessManager \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkaccessmanager.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetworkglobal.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetwork-config.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkrequest.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QSharedDataPointer \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QString \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QUrl \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVector \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QObject \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslConfiguration \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslconfiguration.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtcpsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qabstractsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslerror.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslcertificate.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcryptographichash.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qdatetime.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qssl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QFlags \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QMetaType \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsondocument.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsonvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborcommon.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/quuid.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtabwidget.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qicon.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QApplication \
@@ -840,8 +1004,10 @@ debug/main.o: ../main.cpp ../mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/main.o ../main.cpp
 
 debug/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
+		../login.h \
+		../accountmain.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QDialog \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtguiglobal.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qglobal.h \
@@ -944,10 +1110,45 @@ debug/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qfiledevice.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qvector2d.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
+		../myurl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QDebug \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QNetworkAccessManager \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkaccessmanager.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetworkglobal.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtnetwork-config.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qnetworkrequest.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QSharedDataPointer \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QString \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QUrl \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVector \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QObject \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslConfiguration \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslconfiguration.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qtcpsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qabstractsocket.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslerror.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslcertificate.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcryptographichash.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qdatetime.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qssl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QFlags \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QMetaType \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsondocument.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qjsonvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborvalue.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcborcommon.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/quuid.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qtabwidget.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtGui/qicon.h \
 		ui_mainwindow.h \
-		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/QVariant \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QApplication \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qapplication.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcoreapplication.h \
@@ -967,6 +1168,40 @@ debug/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/qstatusbar.h \
 		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/mainwindow.o ../mainwindow.cpp
+
+debug/myurl.o: ../myurl.cpp ../myurl.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qstring.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qchar.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qglobal.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qconfig-bootstrapped.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qconfig.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qtcore-config.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qsystemdetection.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qprocessordetection.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qcompilerdetection.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qtypeinfo.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qsysinfo.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qlogging.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qflags.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qatomic.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qbasicatomic.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qatomic_bootstrap.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qgenericatomic.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qatomic_cxx11.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qatomic_msvc.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qglobalstatic.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qmutex.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qnumeric.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qversiontagging.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qbytearray.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qrefcount.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qnamespace.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qarraydata.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qstringliteral.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qstringalgorithms.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qstringview.h \
+		C:/Users/petes/Downloads/qt/5.15.2/mingw81_32/include/QtCore/qstringbuilder.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/myurl.o ../myurl.cpp
 
 debug/moc_accountmain.o: debug/moc_accountmain.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_accountmain.o debug/moc_accountmain.cpp
