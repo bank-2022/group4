@@ -2,25 +2,28 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const login = require('../models/login_model');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 router.post('/', 
   function(request, response) {
-    if(request.body.username && request.body.password){
-      const username = request.body.username;
-      const password = request.body.password;
-        login.checkPassword(username, function(dbError, dbResult) {
+    if(request.body.cardNumber && request.body.cardPIN){
+      const cardNumber = request.body.cardNumber;
+      const cardPIN = request.body.cardPIN;
+        login.checkcardPIN(cardNumber, function(dbError, dbResult) {
           if(dbError){
             response.json(dbError);
           }
           else{
             if (dbResult.length > 0) {
-              bcrypt.compare(password,dbResult[0].password, function(err,compareResult) {
+              bcrypt.compare(cardPIN,dbResult[0].cardPIN, function(err,compareResult) {
                 if(compareResult) {
                   console.log("succes");
-                  response.send(true);
+                  const token = generateAccessToken({ username: user });
+                  response.send(token);
                 }
                 else {
-                    console.log("wrong password");
+                    console.log("wrong cardPIN");
                     response.send(false);
                 }			
               }
@@ -35,10 +38,14 @@ router.post('/',
         );
       }
     else{
-      console.log("username or password missing");
+      console.log("cardNumber or cardPIN missing");
       response.send(false);
     }
   }
 );
+function generateAccessToken(username) {
+  dotenv.config();
+  return jwt.sign(username, process.env.MY_TOKEN, { expiresIn: '1800s' });
+}
 
 module.exports=router;
