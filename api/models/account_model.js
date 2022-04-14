@@ -9,8 +9,10 @@ const account = {
   },
   add: function(account, callback) {
     return db.query(
-      'insert into account (id_account,accountNumber,balance) values(?,?,?,?)',
-      [account.id_account, account.accountNumber],
+
+      'insert into account (id_account,accountNumber,balance) values(?,?,?)',
+      [account.id_account, account.accountNumber, account.balance],
+
       callback
     );
   },
@@ -19,8 +21,12 @@ const account = {
   },
   update: function(id, account, callback) {
     return db.query(
-      'update account set id_account=?, accountNumber=?, balance? where id_account=?',
-      [account.id_account, account.accountNumber, id],
+
+      'update account set id_account=?, accountNumber=?, balance=? where id_account=?',
+      [account.id_account, account.accountNumber, account.balance, id],
+
+
+
       callback
     );
   }
