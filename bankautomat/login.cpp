@@ -28,20 +28,15 @@ void Login::on_btnLogin_clicked()
 
     QJsonObject jsonObj;
     jsonObj.insert("cardPIN",cardPIN);
+    jsonObj.insert("cardID",id);
 
-    QString site_url="http://localhost:3000/book/19";
+    QString site_url="http://localhost:3000/login";
     QNetworkRequest request((site_url));
-    //BASIC AUTENTIKOINTI ALKU
-    QString credentials="admin:1234";
-    QByteArray data = credentials.toLocal8Bit().toBase64();
-    QString headerData = "Basic " + data;
-    request.setRawHeader( "Authorization", headerData.toLocal8Bit() );
-    //BASIC AUTENTIKOINTI LOPPU
 
-    putManager = new QNetworkAccessManager(this);
-    connect(putManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(updateBookSlot(QNetworkReply*)));
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(loginSlot(QNetworkReply*)));
 
-    reply = putManager->put(request, QJsonDocument(jsonObj).toJson());
+    reply = loginManager->post(request, QJsonDocument(jsonObj).toJson());
 
 
 
@@ -49,6 +44,6 @@ void Login::on_btnLogin_clicked()
 
 void Login::loginSlot(QNetworkReply *reply)
 {
-
+    QByteArray data=reply->readAll();
 }
 

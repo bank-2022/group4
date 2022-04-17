@@ -8,6 +8,7 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QNetworkReply>
 
 namespace Ui {
 class Login;
