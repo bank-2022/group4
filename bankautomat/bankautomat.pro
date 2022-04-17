@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     accountmain.cpp \
     login.cpp \
-    main.cpp \
     mainwindow.cpp \
     myurl.cpp
 
