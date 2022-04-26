@@ -1,4 +1,5 @@
 const express = require('express');
+const { getBalance } = require('../models/account_model');
 const router = express.Router();
 const account = require('../models/account_model');
 
@@ -57,6 +58,18 @@ function(request, response) {
       response.json(dbResult);
     }
   });
+});
+;
+router.get('/balance/:accountNumber',function(request, response){
+account.getBalance(request.params.accountNumber, function(err,dbResult){
+  console.log(request.params.accountNumber);
+  if(err){
+    response.json(err);
+  }
+  else{
+    response.json(dbResult);
+  }
+})
 });
 
 module.exports = router;

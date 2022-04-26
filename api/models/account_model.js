@@ -29,6 +29,9 @@ const account = {
 
       callback
     );
-  }
+  },
+getBalance:function(cardNumber, callback){
+  return db.query('select id_account, accountNumber, balance from account inner join card on account.id_account=card.accounts_idAccounts where cardNumber=?', [cardNumber], callback);
+}
 };
 module.exports = account;

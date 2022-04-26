@@ -9,6 +9,4 @@ function spawnTokenBuf() {
 
 co(function* () {
     console.log((yield spawnTokenBuf()).toString('base64'));
-
-
 });

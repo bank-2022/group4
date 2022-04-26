@@ -11,19 +11,27 @@ CONFIG += c++11
 SOURCES += \
     accountmain.cpp \
     login.cpp \
+    main.cpp \
     mainwindow.cpp \
-    myurl.cpp
+    myurl.cpp \
+    nosto.cpp \
+    transactions.cpp
 
 HEADERS += \
     accountmain.h \
     login.h \
+    main.h \
     mainwindow.h \
-    myurl.h
+    myurl.h \
+    nosto.h \
+    transactions.h
 
 FORMS += \
     accountmain.ui \
     login.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    nosto.ui \
+    transactions.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
