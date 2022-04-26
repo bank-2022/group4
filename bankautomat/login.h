@@ -29,7 +29,9 @@ private slots:
 private:
     Ui::Login *ui;
     QString cardPIN;
-    QString id;
+    QString cardNumber;
+    QString id_account;
+    QString client_username;
     accountMain *objAccountmain;
     myurl * objMyurl;
     QString base_url;
@@ -37,6 +39,7 @@ private:
     QNetworkAccessManager * loginManager;
     QNetworkReply *reply;
     QByteArray response_data;
+    QByteArray token;
 };
 
 #endif // LOGIN_H

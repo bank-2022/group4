@@ -21,5 +21,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_btnLogin_clicked()
 {
     objectLogin->show();
+    close();
 }
 

@@ -10,9 +10,9 @@ router.post('/',
     if(request.body.cardNumber && request.body.cardPIN){
       const cardNumber = request.body.cardNumber;
       const cardPIN = request.body.cardPIN;
-
-        login.checkPassword(cardNumber, function(dbError, dbResult) {
-
+      console.log("korttinumero" +cardNumber);
+      console.log(cardPIN);
+        login.checkcardPIN(cardNumber, function(dbError, dbResult) {
           if(dbError){
             response.json(dbError);
           }
@@ -21,11 +21,8 @@ router.post('/',
               bcrypt.compare(cardPIN,dbResult[0].cardPIN, function(err,compareResult) {
                 if(compareResult) {
                   console.log("succes");
-
                   const token = generateAccessToken({ cardNumber: cardNumber });
-
-              
-                  response.send(token);
+                  response.send(token)
                 }
                 else {
                     console.log("wrong cardPIN");
@@ -48,13 +45,9 @@ router.post('/',
     }
   }
 );
-function generateAccessToken(username) {
-  dotenv.config();
-  return jwt.sign(username, process.env.MY_TOKEN, { expiresIn: '1800s' });
-}
-
 function generateAccessToken(cardNumber) {
   dotenv.config();
-  return jwt.sign(cardNumber, process.env.MY_TOKEN, { expiresIn: '1800s'});
+  return jwt.sign(cardNumber, process.env.MY_TOKEN, { expiresIn: '1800s' });
 }
+
 module.exports=router;
