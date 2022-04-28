@@ -1,6 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 
+
 Login::Login(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Login)
@@ -8,6 +9,8 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
     objMyurl = new myurl;
     base_url=objMyurl->getBase_url();
+
+
 }
 
 Login::~Login()
@@ -39,8 +42,6 @@ void Login::on_btnLogin_clicked()
 
     reply = loginManager->post(request, QJsonDocument(jsonObj).toJson());
 
-
-
 }
 
 void Login::loginSlot(QNetworkReply *reply)
@@ -58,5 +59,7 @@ void Login::loginSlot(QNetworkReply *reply)
         ui->lePIN->setText("");
     }
 }
+
+
 
 

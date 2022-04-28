@@ -3,7 +3,7 @@
 
 #include "nosto.h"
 #include "transactions.h"
-
+#include "login.h"
 #include <myurl.h>
 #include <QDialog>
 #include <QtNetwork>
@@ -44,6 +44,8 @@ private:
     QByteArray webtoken;
     nosto *objNosto;
     transactions *objTransactions;
+
+
 
 };
 
