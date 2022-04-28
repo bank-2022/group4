@@ -32,9 +32,9 @@ private:
     QString cardNumber;
     QString id_account;
     QString client_username;
-    accountMain *objAccountmain;
     myurl * objMyurl;
     QString base_url;
+    accountMain * objAccountmain;
 
     QNetworkAccessManager * loginManager;
     QNetworkReply *reply;
