@@ -81,6 +81,7 @@ void accountMain::on_btnWithdrawal_clicked()
 
 void accountMain::on_btnShowTransactions_clicked()
 {
+
     objTransactions->exec();
 }
 
