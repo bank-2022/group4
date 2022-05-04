@@ -1,6 +1,8 @@
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
 
+
+
 #include <QDialog>
 
 namespace Ui {
@@ -20,6 +22,7 @@ private slots:
 
 private:
     Ui::transactions *ui;
+
 };
 
 #endif // TRANSACTIONS_H

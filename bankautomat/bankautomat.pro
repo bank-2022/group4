@@ -15,7 +15,6 @@ SOURCES += \
     mainwindow.cpp \
     myurl.cpp \
     nosto.cpp \
-    saldo.cpp \
     transactions.cpp
 
 HEADERS += \
@@ -25,7 +24,6 @@ HEADERS += \
     mainwindow.h \
     myurl.h \
     nosto.h \
-    saldo.h \
     transactions.h
 
 FORMS += \
@@ -33,7 +31,6 @@ FORMS += \
     login.ui \
     mainwindow.ui \
     nosto.ui \
-    saldo.ui \
     transactions.ui
 
 # Default rules for deployment.

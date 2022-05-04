@@ -27,6 +27,7 @@ private slots:
     void loginSlot(QNetworkReply *reply);
 
 private:
+    accountMain *objAccountmain;
     Ui::Login *ui;
     QString cardPIN;
     QString cardNumber;
@@ -34,12 +35,12 @@ private:
     QString client_username;
     myurl * objMyurl;
     QString base_url;
-    accountMain * objAccountmain;
-
     QNetworkAccessManager * loginManager;
     QNetworkReply *reply;
     QByteArray response_data;
     QByteArray token;
+
+
 };
 
 #endif // LOGIN_H

@@ -32,6 +32,12 @@ const account = {
   },
 getBalance:function(cardNumber, callback){
   return db.query('select id_account, accountNumber, balance from account inner join card on account.id_account=card.accounts_idAccounts where cardNumber=?', [cardNumber], callback);
+},
+
+updateBalance:function(id_account, amount,  callback){
+  return db.query(
+          'update account set amount=?, balance=(balance - amount)  where id_account=?', [amount,id_account],
+          callback) 
 }
 };
 module.exports = account;

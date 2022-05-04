@@ -11,6 +11,7 @@ transactions::transactions(QWidget *parent) :
 transactions::~transactions()
 {
     delete ui;
+
 }
 
 void transactions::on_pushButton_clicked()

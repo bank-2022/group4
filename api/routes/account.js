@@ -70,6 +70,20 @@ account.getBalance(request.params.accountNumber, function(err,dbResult){
     response.json(dbResult);
   }
 })
-});
+},
+router.put('/balance/:cardNumber', 
+function(request, response) {
+  console.log(request.body.amount);
+  account.updateBalance(request.params.cardNumber, request.body.amount, function(err, dbResult) {
+    console.log(request.params.cardNumber);
+
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(dbResult);
+    }
+  });
+})
+);
 
 module.exports = router;
