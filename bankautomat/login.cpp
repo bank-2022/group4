@@ -6,6 +6,7 @@ Login::Login(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Login)
 {
+
     ui->setupUi(this);
     objMyurl = new myurl;
     base_url=objMyurl->getBase_url();
@@ -50,7 +51,7 @@ void Login::loginSlot(QNetworkReply *reply)
     qDebug() << data;
     if(data != "false"){
     token="Bearer "+data;
-    objAccountmain= new accountMain(cardPIN, cardNumber, token);
+    objAccountmain = new accountMain(cardPIN, cardNumber, token);
     objAccountmain->show();
     close();
     }
