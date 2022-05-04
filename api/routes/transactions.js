@@ -46,8 +46,16 @@ function(request, response) {
     }
   });
 });
-
-
+router.get('/transactions/:id_account',function(request,response){
+  transactions.gettransactions(request.params.id_account,function(err,dbResult){
+  if(err){
+    response.json(err);
+  }
+  else{
+    response.json(dbResult);
+  }
+})
+},
 router.put('/:id', 
 function(request, response) {
   transactions.update(request.params.id, request.body, function(err, dbResult) {
@@ -56,8 +64,8 @@ function(request, response) {
     } else {
       response.json(dbResult);
     }
-  });
 });
-
+}));
+  
 module.exports = router;
 

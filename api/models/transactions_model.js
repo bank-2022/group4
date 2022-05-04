@@ -19,6 +19,9 @@ const transactions = {
   delete: function(id, callback) {
     return db.query('delete from transactions where id_transactions=?', [id], callback);
   },
+  gettransactions:function(id,callback){
+    return db.query('select id_transactions, transaction,sum,accounts_idaccounts,cardNumber from transactions where accounts_idaccounts=?',[accounts_idaccounts],callback);
+},
   update: function(id, transactions, callback) {
     return db.query(
       'update transactions set accountNumber=?,cardNumber=?, date_and_time=?, transaction=?, sum=?, accounts_idaccounts=? where id_transactions=?',
